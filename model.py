@@ -15,7 +15,7 @@ from PIL import ImageOps
 
 from io import BytesIO
 
-from keras.models import model_from_json
+from keras.models import Sequential, model_from_json
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array
 from keras.layers.core import Dense, Activation, Flatten, Dropout
 from keras.layers.convolutional import Convolution2D
@@ -86,6 +86,21 @@ def load_sample(data_dir, sample_size=10):
   df['img'] = df['img_center'].apply(lambda file_name: load_image(file_name))
   return df
 
+# output_array = m.sample_to_output_array(sample)
+
+def sample_to_output_array(sample):
+  num_rows = len(sample)
+  num_categories = len(steering_bins)
+  result = np.zeros((num_rows, num_categories))
+  for i,steer_bin in enumerate(sample['steer_bin']):
+    result[i][steer_bin] = 1
+  return result
+
+# input_array = m.sample_to_input_array(sample)
+
+def sample_to_input_array(sample):
+  return np.stack(sample['img'].values)
+
 def create_model():
   model = Sequential()
   # Convolution2D(output_depth, convolution height, convolution_width, ...)
@@ -99,8 +114,13 @@ def create_model():
                 metrics=['accuracy'])
   return model
 
+# import model as m; mod = m.create_model(); hist = m.train_model(mod, m.default_data_dir)
+
 def train_model(model, data_dir):
-  pass
+  sample = load_sample(data_dir)
+  input_array = sample_to_input_array(sample)
+  output_array = sample_to_output_array(sample)
+  return model.fit(input_array, output_array, batch_size=32, nb_epoch=10)
 
 # Saving and loading keras models
 # https://keras.io/models/about-keras-models/
