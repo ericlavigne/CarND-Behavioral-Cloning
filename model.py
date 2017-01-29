@@ -42,6 +42,8 @@ tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
 # to throttle = -0.2 to check if that works. If not, will need to
 # ask Udacity staff if simulator can be upgraded.
 
+default_data_dir = '../CarND-Simulator'
+
 steering_bins = [-1, -0.4, -0.15, 0.0, 0.15, 0.4, 1]
 throttle_bins = [-1, 0, 1]
 
@@ -73,6 +75,15 @@ def load_summary_data(data_dir):
   df['steer_bin'] = df['steer'].apply(lambda angle: convert_steer_angle_to_bin(angle))
   df.drop('img_left', 1, inplace=True)
   df.drop('img_right', 1, inplace=True)
+  return df
+
+# sample = m.load_sample(m.default_data_dir)
+# 4 seconds to load sample of 1000 - not bad :-)
+
+def load_sample(data_dir, sample_size=10):
+  df = load_summary_data(data_dir)
+  df = df.sample(sample_size)
+  df['img'] = df['img_center'].apply(lambda file_name: load_image(file_name))
   return df
 
 def create_model():
