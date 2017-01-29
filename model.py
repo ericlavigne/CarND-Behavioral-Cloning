@@ -57,12 +57,12 @@ def convert_steer_angle_to_bin(angle):
       best_bin = i
   return best_bin
 
-# import model as m
-# m.load_image('/Users/ericlavigne/workspace/CarND-Simulator/IMG/center_2017_01_21_19_10_57_316.jpg')
+# import model as m; m.load_image('/Users/ericlavigne/workspace/CarND-Simulator/IMG/center_2017_01_21_19_10_57_316.jpg')
 
 def load_image(file_name):
   img = mpimg.imread(file_name)
   img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+  img = (img / 255) - 0.5
   return img
 
 # import model as m; m.load_summary_data('../CarND-Simulator').head(5)
@@ -104,10 +104,10 @@ def sample_to_input_array(sample):
 def create_model():
   model = Sequential()
   # Convolution2D(output_depth, convolution height, convolution_width, ...)
-  model.add(Convolution2D(10, 5, 5, border_mode='valid', input_shape=(160,320,3)))
+  model.add(Convolution2D(10, 5, 5, border_mode='valid', activation='tanh', input_shape=(160,320,3)))
   # model.add(Dropout(0.5)
   model.add(Flatten())
-  model.add(Dense(32))
+  model.add(Dense(32, activation='tanh'))
   model.add(Dense(len(steering_bins), activation='softmax'))
   model.compile(optimizer='adam',
                 loss='categorical_crossentropy',
@@ -120,7 +120,7 @@ def train_model(model, data_dir):
   sample = load_sample(data_dir)
   input_array = sample_to_input_array(sample)
   output_array = sample_to_output_array(sample)
-  return model.fit(input_array, output_array, batch_size=32, nb_epoch=10)
+  return model.fit(input_array, output_array, batch_size=32, nb_epoch=100)
 
 # Saving and loading keras models
 # https://keras.io/models/about-keras-models/
