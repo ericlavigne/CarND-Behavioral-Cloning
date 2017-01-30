@@ -20,6 +20,8 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 from keras.layers.core import Dense, Activation, Flatten, Dropout
 from keras.layers.convolutional import Convolution2D
 
+from math import ceil
+
 import tensorflow as tf
 tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
 
@@ -77,12 +79,25 @@ def load_summary_data(data_dir):
   df.drop('img_right', 1, inplace=True)
   return df
 
-# sample = m.load_sample(m.default_data_dir)
+# import model as m; sample = m.load_sample(m.default_data_dir)
+# import model as m; sample = m.load_sample(m.default_data_dir, sample_filter='validation')
+# import model as m; sample = m.load_sample(m.default_data_dir, sample_filter='training')
 # 4 seconds to load sample of 1000 - not bad :-)
 
-def load_sample(data_dir, sample_size=10):
+def load_sample(data_dir, sample_size=10, sample_filter='all'):
   df = load_summary_data(data_dir)
+  # Chunks of 100 frames (~10 seconds) set aside for validation
+  df['index'] = df.index
+  if sample_filter == 'validation':
+    df = df[((df['index'] // 100) % 10) == 0]
+  if sample_filter == 'training':
+    df = df[((df['index'] // 100) % 10) != 0]
+  # Minority oversampling - all steer bins are equally represented
+  num_bins = len(steering_bins)
+  per_bin = ceil(sample_size * 2 / num_bins + 1)
+  df = pd.concat([df[df['steer_bin'] == i].sample(per_bin, replace=True) for i in range(num_bins)])
   df = df.sample(sample_size)
+  # Add a column to represent pixel values
   df['img'] = df['img_center'].apply(lambda file_name: load_image(file_name))
   return df
 
