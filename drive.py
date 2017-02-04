@@ -1,5 +1,7 @@
 # drive the car (interact with the simulator)
 
+import model as m
+
 import argparse
 import base64
 import json
@@ -41,9 +43,13 @@ def telemetry(sid, data):
     image_array = np.asarray(image)
     transformed_image_array = image_array[None, :, :, :]
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
-    steering_angle = float(model.predict(transformed_image_array, batch_size=1))
+    prediction = model.predict(transformed_image_array, batch_size=1)
+    print("prediction: " + str(prediction))
+    steering_angle = m.bin_probabilities_to_angle(prediction[0])
+    print("steering angle: " + str(steering_angle))
+    print("\n===\n")
     # The driving model currently just outputs a constant throttle. Feel free to edit this.
-    throttle = 0.2
+    throttle = 1.0
     print(steering_angle, throttle)
     send_control(steering_angle, throttle)
 

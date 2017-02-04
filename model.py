@@ -21,6 +21,7 @@ from keras.layers.core import Dense, Activation, Flatten, Dropout
 from keras.layers.convolutional import Convolution2D
 
 from math import ceil
+from random import random
 
 import tensorflow as tf
 tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
@@ -58,6 +59,22 @@ def convert_steer_angle_to_bin(angle):
       best_diff = diff
       best_bin = i
   return best_bin
+
+def convert_bin_to_steer_angle(bin):
+  return steering_bins[bin]
+
+def bin_probabilities_to_angle(bins):
+  print("bins: " + str(bins))
+  total_prob = sum(bins)
+  r = random() * total_prob
+  print("random: " + str(r) + " / " + str(total_prob))
+  prob_so_far = 0
+  for i in range(len(bins)):
+    prob_so_far += bins[i]
+    if prob_so_far >= r:
+      angle = convert_bin_to_steer_angle(i)
+      print("selected " + str(i) + " for angle " + str(angle))
+      return angle
 
 # import model as m; m.load_image('/Users/ericlavigne/workspace/CarND-Simulator/IMG/center_2017_01_21_19_10_57_316.jpg')
 
