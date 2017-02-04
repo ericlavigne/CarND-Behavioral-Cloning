@@ -135,7 +135,7 @@ def train_model(model, data_dir):
   sample = load_sample(data_dir)
   input_array = sample_to_input_array(sample)
   output_array = sample_to_output_array(sample)
-  return model.fit(input_array, output_array, batch_size=32, nb_epoch=100)
+  return model.fit(input_array, output_array, batch_size=32, nb_epoch=10)
 
 # Saving and loading keras models
 # https://keras.io/models/about-keras-models/
@@ -152,17 +152,45 @@ def save_model(model,path='model'):
 def load_model(path):
   with open(path + '.json', 'r') as arch_file:
     model = model_from_json(arch_file.read())
+    model.compile(optimizer='adam',
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
     model.load_weights(path + '.h5')
     return model
 
+# python model.py --training_data=/Users/ericlavigne/workspace/CarND-Simulator --save_model=model
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='SimDrive Training')
-    parser.add_argument('load_model', type=str,
+    parser.add_argument('--load_model', type=str, required=False, default=None,
                         help='Path to model definition for loading (without json/h5 extension)')
-    parser.add_argument('save_model', type=str,
+    parser.add_argument('--save_model', type=str, required=False, default=None,
                         help='Path to model definition for saving (without json/h5 extension)')
-    parser.add_argument('training_data', type=str,
+    parser.add_argument('--training_data', type=str, required=True,
                         help='Path to folder with driving_log.csv and IMG subfolder')
     args = parser.parse_args()
 
-    print(args.model)    
+    model = None
+    if args.load_model:
+      print("Loading model from " + args.load_model)
+      model = load_model(args.load_model)
+    else:
+      print("Creating new model")
+      model = create_model()
+
+    data_dir = None
+    if args.training_data:
+      print("Training data in " + args.training_data)
+      data_dir = args.training_data
+    else:
+      print("Need to specify training_data directory")
+      exit
+
+    train_model(model, data_dir)
+
+    if args.save_model:
+      print("Saving to " + args.save_model)
+      save_model(model, args.save_model)
+    else:
+      print("Not saving because save_model not specified")
+    
