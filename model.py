@@ -149,10 +149,11 @@ def create_model():
 # import model as m; mod = m.create_model(); hist = m.train_model(mod, m.default_data_dir)
 
 def train_model(model, data_dir):
-  sample = load_sample(data_dir)
-  input_array = sample_to_input_array(sample)
-  output_array = sample_to_output_array(sample)
-  return model.fit(input_array, output_array, batch_size=32, nb_epoch=10)
+  for i in range(10): # number of minibatches
+    sample = load_sample(data_dir, sample_size=200) # size of each minibatch
+    input_array = sample_to_input_array(sample)
+    output_array = sample_to_output_array(sample)
+    model.fit(input_array, output_array, batch_size=32, nb_epoch=1)
 
 # Saving and loading keras models
 # https://keras.io/models/about-keras-models/
