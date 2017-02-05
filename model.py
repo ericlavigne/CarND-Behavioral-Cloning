@@ -128,6 +128,29 @@ def sample_to_output_array(sample):
     result[i][steer_bin] = 1
   return result
 
+# generates random subsets of the training data for use in keras's fit_generator
+# sample_generator(data_dir=default_data_dir, batch_size=20, sample_filter='training')
+
+class sample_generator(object):
+  def __init__(self, data_dir=default_data_dir, batch_size=100, sample_filter='all'):
+    self.data_dir = data_dir
+    self.batch_size = batch_size
+    self.sample_filter = sample_filter
+
+  def __iter__(self):
+    return self
+
+  def __next__(self):
+    return self.next()
+
+  def next(self):
+    sample = load_sample(self.data_dir,
+                         sample_size=self.batch_size,
+                         sample_filter=self.sample_filter)
+    input_array = sample_to_input_array(sample)
+    output_array = sample_to_output_array(sample)
+    return (input_array, output_array)
+
 # input_array = m.sample_to_input_array(sample)
 
 def sample_to_input_array(sample):
@@ -149,11 +172,15 @@ def create_model():
 # import model as m; mod = m.create_model(); hist = m.train_model(mod, m.default_data_dir)
 
 def train_model(model, data_dir):
-  for i in range(10): # number of minibatches
-    sample = load_sample(data_dir, sample_size=200) # size of each minibatch
-    input_array = sample_to_input_array(sample)
-    output_array = sample_to_output_array(sample)
-    model.fit(input_array, output_array, batch_size=32, nb_epoch=1)
+  return model.fit_generator(sample_generator(data_dir=data_dir,
+                                              batch_size=100,
+                                              sample_filter='training'),
+                             samples_per_epoch=500,
+                             nb_epoch=20,
+                             validation_data=sample_generator(data_dir=data_dir,
+                                                              batch_size=100,
+                                                              sample_filter='validation'),
+                             nb_val_samples=100)
 
 # Saving and loading keras models
 # https://keras.io/models/about-keras-models/
