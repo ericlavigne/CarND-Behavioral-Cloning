@@ -48,7 +48,8 @@ tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
 
 default_data_dir = '../CarND-Simulator'
 
-steering_bins = [-1, -0.4, -0.15, 0.0, 0.15, 0.4, 1]
+#steering_bins = [-1, -0.4, -0.15, 0.0, 0.15, 0.4, 1]
+steering_bins = [-0.20, -0.15, -0.10, -0.05, 0.0, 0.05, 0.10, 0.15, 0.20]
 throttle_bins = [-1, 0, 1]
 
 def convert_steer_angle_to_bin(angle):
