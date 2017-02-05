@@ -40,7 +40,7 @@ def telemetry(sid, data):
     # The current image from the center camera of the car
     imgString = data["image"]
     image = Image.open(BytesIO(base64.b64decode(imgString)))
-    image_array = np.asarray(image)
+    image_array = m.convert_image_to_input_format(np.asarray(image))
     transformed_image_array = image_array[None, :, :, :]
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     prediction = model.predict(transformed_image_array, batch_size=1)

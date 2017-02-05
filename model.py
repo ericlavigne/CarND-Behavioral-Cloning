@@ -19,6 +19,7 @@ from keras.models import Sequential, model_from_json
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array
 from keras.layers.core import Dense, Activation, Flatten, Dropout
 from keras.layers.convolutional import Convolution2D
+from keras.regularizers import l2
 
 from math import ceil
 from random import random
@@ -80,6 +81,12 @@ def bin_probabilities_to_angle(bins):
 
 def load_image(file_name):
   img = mpimg.imread(file_name)
+  return convert_image_to_input_format(img)
+
+def convert_image_to_input_format(original):
+  img = original
+  #print("Image has shape " + str(img.shape))
+  #img = cv2.resize(img, (320, 160), interpolation=cv2.INTER_AREA)
   img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   img = (img / 255) - 0.5
   return img
@@ -159,11 +166,24 @@ def sample_to_input_array(sample):
 def create_model():
   model = Sequential()
   # Convolution2D(output_depth, convolution height, convolution_width, ...)
-  model.add(Convolution2D(10, 5, 5, border_mode='valid', activation='tanh', input_shape=(160,320,3)))
-  # model.add(Dropout(0.5)
-  model.add(Flatten())
-  model.add(Dense(32, activation='tanh'))
-  model.add(Dense(len(steering_bins), activation='softmax'))
+  model.add(Convolution2D(6, 5, 5, border_mode='valid', activation='tanh', input_shape=(160,320,3))) # -> (156,316,3)
+  model.add(Dropout(0.5))
+  model.add(Convolution2D(12, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (76,156,12)
+  model.add(Dropout(0.5))
+  model.add(Convolution2D(18, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (36,76,18)
+  model.add(Dropout(0.5))
+  model.add(Convolution2D(24, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (16,36,24)
+  model.add(Dropout(0.5))
+  model.add(Convolution2D(30, 3, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (7,16,30)
+  model.add(Dropout(0.5))
+  model.add(Flatten()) # 7x16x30 -> 3360
+  model.add(Dense(180, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dropout(0.4))
+  model.add(Dense(90, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dropout(0.3))
+  model.add(Dense(30, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dropout(0.2))
+  model.add(Dense(len(steering_bins), activation='softmax', W_regularizer=l2(0.01)))
   model.compile(optimizer='adam',
                 loss='categorical_crossentropy',
                 metrics=['accuracy'])
