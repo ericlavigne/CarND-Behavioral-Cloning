@@ -34,7 +34,7 @@ programs are started in because both will retry the connection.
 First time:
 
 ```
-virtualenv env
+virtualenv -p python3 env
 source env/bin/activate
 pip install -r requirements.txt
 deactivate
