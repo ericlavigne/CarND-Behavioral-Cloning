@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.image as mpimg
 import cv2
+import re
 
 import time
 from PIL import Image
@@ -124,7 +125,7 @@ def load_sample(data_dir, sample_size=10, sample_filter='all'):
   df = pd.concat([df[df['steer_bin'] == i].sample(per_bin, replace=True) for i in range(num_bins)])
   df = df.sample(sample_size)
   # Add a column to represent pixel values
-  df['img'] = df['img_center'].apply(lambda file_name: load_image(file_name))
+  df['img'] = df['img_center'].apply(lambda file_name: load_image(re.sub(r".*/IMG/", data_dir + "/IMG/", file_name)))
   return df
 
 # output_array = m.sample_to_output_array(sample)
