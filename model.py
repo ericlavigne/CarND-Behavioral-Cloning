@@ -48,7 +48,6 @@ tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
 
 default_data_dir = '../CarND-Simulator'
 
-#steering_bins = [-1, -0.4, -0.15, 0.0, 0.15, 0.4, 1]
 steering_bins = [-0.20, -0.15, -0.10, -0.05, 0.0, 0.05, 0.10, 0.15, 0.20]
 throttle_bins = [-1, 0, 1]
 
@@ -67,15 +66,17 @@ def convert_bin_to_steer_angle(bin):
 
 def bin_probabilities_to_angle(bins):
   print("bins: " + str(bins))
-  total_prob = sum(bins)
-  r = random() * total_prob
-  print("random: " + str(r) + " / " + str(total_prob))
-  prob_so_far = 0
+  weighted_bins = [x for x in bins]
+  weighted_total = sum(weighted_bins)
+  threshold = random() * weighted_total
+  #print("random: " + str(r) + " / " + str(total_prob))
+  weight_so_far = 0
   for i in range(len(bins)):
-    prob_so_far += bins[i]
-    if prob_so_far >= r:
+    weight_so_far += weighted_bins[i]
+    if weight_so_far >= threshold:
       angle = convert_bin_to_steer_angle(i)
-      print("selected " + str(i) + " for angle " + str(angle))
+      #print("selected " + str(i) + " for angle " + str(angle))
+      print("selected " + str(angle) + " (" + str(i) + ") from " + str(bins))
       return angle
 
 # import model as m; m.load_image('/Users/ericlavigne/workspace/CarND-Simulator/IMG/center_2017_01_21_19_10_57_316.jpg')
