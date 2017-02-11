@@ -89,8 +89,9 @@ def load_image(file_name):
 def convert_image_to_input_format(original):
   img = original
   #print("Image has shape " + str(img.shape))
-  # TODO: Crop bottom to hide car (hint of left/right/center)
-  # TODO: Crop top to hide non-road scenery (trees/skies/mountains not relevant)
+  # TODO: Crop bottom to hide car (y=130, hint of left/right/center camera)
+  # TODO: Crop top to hide non-road scenery (y=60, trees/skies/mountains not relevant)
+  img = img[60:130,0:320] # crop 320x160 -> 320x70, removing bottom (car hood) and top (scenery)
   #img = cv2.resize(img, (320, 160), interpolation=cv2.INTER_AREA)
   img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   img = (img / 255) - 0.5
@@ -172,20 +173,20 @@ def sample_to_input_array(sample):
 def create_model():
   model = Sequential()
   # Convolution2D(output_depth, convolution height, convolution_width, ...)
-  model.add(Convolution2D(6, 5, 5, border_mode='valid', activation='tanh', input_shape=(160,320,3))) # -> (156,316,3)
+  model.add(Convolution2D(6, 5, 5, border_mode='valid', activation='tanh', input_shape=(70,320,3))) # -> (66,316,6)
   model.add(Dropout(0.5))
-  model.add(Convolution2D(12, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (76,156,12)
+  model.add(Convolution2D(12, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (31,156,12)
   model.add(Dropout(0.5))
-  model.add(Convolution2D(18, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (36,76,18)
+  model.add(Convolution2D(18, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (14,76,18)
   model.add(Dropout(0.5))
-  model.add(Convolution2D(24, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (16,36,24)
+  model.add(Convolution2D(24, 5, 5, border_mode='valid', activation='tanh', subsample=(1,2))) # -> (10,36,24)
   model.add(Dropout(0.5))
-  model.add(Convolution2D(30, 3, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (7,16,30)
+  model.add(Convolution2D(24, 5, 5, border_mode='valid', activation='tanh', subsample=(1,2))) # -> (6,16,24)
   model.add(Dropout(0.5))
-  model.add(Flatten()) # 7x16x30 -> 3360
-  model.add(Dense(100, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Flatten()) # 6x16x24 -> 2304
+  model.add(Dense(30, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.4))
-  model.add(Dense(50, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dense(25, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.3))
   model.add(Dense(20, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.2))
