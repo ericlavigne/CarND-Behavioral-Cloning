@@ -47,7 +47,7 @@ tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
 # to throttle = -0.2 to check if that works. If not, will need to
 # ask Udacity staff if simulator can be upgraded.
 
-default_data_dir = '../CarND-Simulator'
+default_data_dir = '../CarND-Simulator/curated'
 
 steering_bins = [-0.20, -0.15, -0.10, -0.05, 0.0, 0.05, 0.10, 0.15, 0.20]
 throttle_bins = [-1, 0, 1]
@@ -89,6 +89,8 @@ def load_image(file_name):
 def convert_image_to_input_format(original):
   img = original
   #print("Image has shape " + str(img.shape))
+  # TODO: Crop bottom to hide car (hint of left/right/center)
+  # TODO: Crop top to hide non-road scenery (trees/skies/mountains not relevant)
   #img = cv2.resize(img, (320, 160), interpolation=cv2.INTER_AREA)
   img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   img = (img / 255) - 0.5
@@ -111,7 +113,7 @@ def load_summary_data(data_dir):
 # import model as m; sample = m.load_sample(m.default_data_dir, sample_filter='training')
 # 4 seconds to load sample of 1000 - not bad :-)
 
-def load_sample(data_dir, sample_size=10, sample_filter='all'):
+def load_sample(data_dir, sample_size=10, sample_filter='all', minority_oversampling=False):
   df = load_summary_data(data_dir)
   # Chunks of 100 frames (~10 seconds) set aside for validation
   df['index'] = df.index
@@ -120,10 +122,11 @@ def load_sample(data_dir, sample_size=10, sample_filter='all'):
   if sample_filter == 'training':
     df = df[((df['index'] // 100) % 10) != 0]
   # Minority oversampling - all steer bins are equally represented
-  num_bins = len(steering_bins)
-  per_bin = ceil(sample_size * 2 / num_bins + 1)
-  df = pd.concat([df[df['steer_bin'] == i].sample(per_bin, replace=True) for i in range(num_bins)])
-  df = df.sample(sample_size)
+  if minority_oversampling:
+    num_bins = len(steering_bins)
+    per_bin = ceil(sample_size * 2 / num_bins + 1)
+    df = pd.concat([df[df['steer_bin'] == i].sample(per_bin, replace=True) for i in range(num_bins)])
+  df = df.sample(sample_size, replace=True)
   # Add a column to represent pixel values
   df['img'] = df['img_center'].apply(lambda file_name: load_image(re.sub(r".*/IMG/", data_dir + "/IMG/", file_name)))
   return df
@@ -180,11 +183,11 @@ def create_model():
   model.add(Convolution2D(30, 3, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (7,16,30)
   model.add(Dropout(0.5))
   model.add(Flatten()) # 7x16x30 -> 3360
-  model.add(Dense(180, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dense(100, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.4))
-  model.add(Dense(90, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dense(50, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.3))
-  model.add(Dense(30, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dense(20, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.2))
   model.add(Dense(len(steering_bins), activation='softmax', W_regularizer=l2(0.01)))
   model.compile(optimizer='adam',
@@ -196,14 +199,14 @@ def create_model():
 
 def train_model(model, data_dir):
   return model.fit_generator(sample_generator(data_dir=data_dir,
-                                              batch_size=100,
-                                              sample_filter='training'),
-                             samples_per_epoch=500,
-                             nb_epoch=20,
-                             validation_data=sample_generator(data_dir=data_dir,
-                                                              batch_size=100,
-                                                              sample_filter='validation'),
-                             nb_val_samples=100)
+                                              batch_size=10),
+                                              #sample_filter='training'),
+                             samples_per_epoch=30,
+                             nb_epoch=20)
+                             #validation_data=sample_generator(data_dir=data_dir,
+                             #                                 batch_size=100,
+                             #                                 sample_filter='validation'),
+                             #nb_val_samples=100)
 
 # Saving and loading keras models
 # https://keras.io/models/about-keras-models/
