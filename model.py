@@ -102,11 +102,9 @@ def convert_image_to_input_format(original):
 
 def load_summary_data(data_dir):
   file_name = data_dir + '/driving_log.csv'
-  col_names = ['img_center','img_left','img_right','steer','throttle','brake','speed']
+  col_names = ['img_center','img_left','img_right','steer','throttle','brake','speed','notes']
   df = pd.read_csv(file_name, names=col_names)
   df['steer_bin'] = df['steer'].apply(lambda angle: convert_steer_angle_to_bin(angle))
-  df.drop('img_left', 1, inplace=True)
-  df.drop('img_right', 1, inplace=True)
   return df
 
 # import model as m; sample = m.load_sample(m.default_data_dir)
@@ -129,17 +127,29 @@ def load_sample(data_dir, sample_size=10, sample_filter='all', minority_oversamp
     df = pd.concat([df[df['steer_bin'] == i].sample(per_bin, replace=True) for i in range(num_bins)])
   df = df.sample(sample_size, replace=True)
   # Add a column to represent pixel values
-  df['img'] = df['img_center'].apply(lambda file_name: load_image(re.sub(r".*/IMG/", data_dir + "/IMG/", file_name)))
+  for camera in ['left','right','center']:
+    column = 'img_' + camera 
+    df[column] = df[column].apply(lambda file_name: load_image(re.sub(r".*/IMG/", data_dir + "/IMG/", file_name)))
   return df
+
+# input_array = m.sample_to_input_array(sample)
+
+def sample_to_input_array(sample):
+  return np.concatenate((np.stack(sample['img_left'].values),
+                         np.stack(sample['img_center'].values),
+                         np.stack(sample['img_right'].values)))
 
 # output_array = m.sample_to_output_array(sample)
 
 def sample_to_output_array(sample):
   num_rows = len(sample)
   num_categories = len(steering_bins)
-  result = np.zeros((num_rows, num_categories))
-  for i,steer_bin in enumerate(sample['steer_bin']):
-    result[i][steer_bin] = 1
+  result = np.zeros((num_rows * 3, num_categories))
+  for camera_index, camera in enumerate(['left','center','right']):
+    angle_offset = [0.05, 0.00, -0.05][camera_index]
+    for sample_index,steer_angle in enumerate(sample['steer']):
+      steer_bin = convert_steer_angle_to_bin(steer_angle + angle_offset)
+      result[(camera_index * num_rows) + sample_index][steer_bin] = 1
   return result
 
 # generates random subsets of the training data for use in keras's fit_generator
@@ -164,11 +174,6 @@ class sample_generator(object):
     input_array = sample_to_input_array(sample)
     output_array = sample_to_output_array(sample)
     return (input_array, output_array)
-
-# input_array = m.sample_to_input_array(sample)
-
-def sample_to_input_array(sample):
-  return np.stack(sample['img'].values)
 
 def create_model():
   model = Sequential()
@@ -203,7 +208,7 @@ def train_model(model, data_dir):
                                               batch_size=10),
                                               #sample_filter='training'),
                              samples_per_epoch=30,
-                             nb_epoch=20)
+                             nb_epoch=30)
                              #validation_data=sample_generator(data_dir=data_dir,
                              #                                 batch_size=100,
                              #                                 sample_filter='validation'),
