@@ -3,6 +3,7 @@
 import argparse
 import base64
 import json
+import gc
 
 import numpy as np
 import pandas as pd
@@ -268,4 +269,7 @@ if __name__ == '__main__':
       save_model(model, args.save_model)
     else:
       print("Not saving because save_model not specified")
+
+    model = None
+    gc.collect() # Workaround for TensorFlow bug
     
