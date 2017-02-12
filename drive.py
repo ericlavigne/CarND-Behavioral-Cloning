@@ -45,7 +45,7 @@ def telemetry(sid, data):
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     prediction = model.predict(transformed_image_array, batch_size=1)
     print("prediction: " + str(prediction))
-    steering_angle = m.bin_probabilities_to_angle(prediction[0])
+    steering_angle = prediction[0][0]
     print("steering angle: " + str(steering_angle))
     print("\n===\n")
     # The driving model currently just outputs a constant throttle. Feel free to edit this.
