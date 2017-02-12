@@ -48,7 +48,7 @@ tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
 # to throttle = -0.2 to check if that works. If not, will need to
 # ask Udacity staff if simulator can be upgraded.
 
-default_data_dir = '../CarND-Simulator/curated'
+default_data_dir = './data'
 
 steering_bins = [-0.20, -0.15, -0.10, -0.05, 0.0, 0.05, 0.10, 0.15, 0.20]
 throttle_bins = [-1, 0, 1]
@@ -204,10 +204,10 @@ def create_model():
 
 def train_model(model, data_dir):
   return model.fit_generator(sample_generator(data_dir=data_dir,
-                                              batch_size=10),
+                                              batch_size=20),
                                               #sample_filter='training'),
-                             samples_per_epoch=30,
-                             nb_epoch=50)
+                             samples_per_epoch=120,
+                             nb_epoch=100)
                              #validation_data=sample_generator(data_dir=data_dir,
                              #                                 batch_size=100,
                              #                                 sample_filter='validation'),
