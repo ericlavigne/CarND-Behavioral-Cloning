@@ -143,13 +143,11 @@ def sample_to_input_array(sample):
 
 def sample_to_output_array(sample):
   num_rows = len(sample)
-  num_categories = len(steering_bins)
-  result = np.zeros((num_rows * 3, num_categories))
+  result = np.zeros((num_rows * 3, 1))
   for camera_index, camera in enumerate(['left','center','right']):
     angle_offset = [0.05, 0.00, -0.05][camera_index]
     for sample_index,steer_angle in enumerate(sample['steer']):
-      steer_bin = convert_steer_angle_to_bin(steer_angle + angle_offset)
-      result[(camera_index * num_rows) + sample_index][steer_bin] = 1
+      result[(camera_index * num_rows) + sample_index][0] = steer_angle + angle_offset
   return result
 
 # generates random subsets of the training data for use in keras's fit_generator
@@ -195,10 +193,10 @@ def create_model():
   model.add(Dropout(0.3))
   model.add(Dense(20, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.2))
-  model.add(Dense(len(steering_bins), activation='softmax', W_regularizer=l2(0.01)))
+  model.add(Dense(1, activation='tanh', W_regularizer=l2(0.01)))
   model.compile(optimizer='adam',
-                loss='categorical_crossentropy',
-                metrics=['accuracy'])
+                loss='mean_absolute_error',
+                metrics=['mean_absolute_error','mean_squared_error'])
   return model
 
 # import model as m; mod = m.create_model(); hist = m.train_model(mod, m.default_data_dir)
@@ -208,7 +206,7 @@ def train_model(model, data_dir):
                                               batch_size=10),
                                               #sample_filter='training'),
                              samples_per_epoch=30,
-                             nb_epoch=30)
+                             nb_epoch=50)
                              #validation_data=sample_generator(data_dir=data_dir,
                              #                                 batch_size=100,
                              #                                 sample_filter='validation'),
@@ -230,8 +228,8 @@ def load_model(path):
   with open(path + '.json', 'r') as arch_file:
     model = model_from_json(arch_file.read())
     model.compile(optimizer='adam',
-                  loss='categorical_crossentropy',
-                  metrics=['accuracy'])
+                  loss='mean_absolute_error',
+                  metrics=['mean_absolute_error','mean_squared_error'])
     model.load_weights(path + '.h5')
     return model
 
