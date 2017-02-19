@@ -99,11 +99,21 @@ def sample_to_output_array(sample):
       result[result_index][1] = throttle * 0.2
   return result
 
+driving_loss_weights = tf.constant([0.8, 0.2])
+  
+def driving_loss(y_true, y_pred):
+  """Custom loss function for driving agent. Steering angle is more difficult
+     and more important than throttle, so loss should give steering angle more
+     weight."""
+  individual_losses = tf.abs(y_pred - y_true)
+  weighted_individual_losses = tf.multiply(individual_losses, driving_loss_weights)
+  return tf.reduce_mean(weighted_individual_losses, axis=-1)
+
 def compile_model(model):
   """Would be part of create_model, except that same settings
      also need to be applied when loading model from file."""
   model.compile(optimizer='adam',
-                loss='mean_absolute_error',
+                loss=driving_loss,
                 metrics=['mean_absolute_error','mean_squared_error'])
 
 def create_model():
