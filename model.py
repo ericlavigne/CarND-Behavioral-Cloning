@@ -23,9 +23,15 @@ tf.python.control_flow_ops = tf # mysterious fix to keras/tensorflow issue
 
 default_data_dir = './data'
 
-def convert_image_to_input_format(original):
+def convert_image_and_speed_to_input_format(original,speed):
   """Image preprocessing that must be applied before feeding as input to the model.
+  
+     This includes adding speed (normalized [-0.5,0.5]) as a fourth channel as
+     workaround for not knowing how to introduce a non-image input after the
+     convolutional layers in keras.
+     
      Called from both model.py and drive.py."""
+     
   img = original
   # Crop bottom to hide car (y=130, hint of left/right/center camera)
   # Crop top to hide non-road scenery (y=60, trees/skies/mountains not relevant)
@@ -34,14 +40,12 @@ def convert_image_to_input_format(original):
   img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   # Normalize all channels to [-0.5,0.5] range
   img = (img / 255) - 0.5
+  # Add normalized speed 
+  hue_channel, saturation_channel, value_channel = cv2.split(img)
+  speed_channel = np.ones(hue_channel.shape) * (speed / 60.0)
+  img = cv2.merge((hue_channel, saturation_channel, value_channel, speed_channel))
+  
   return img
-
-# import model as m; m.load_image('/Users/ericlavigne/workspace/CarND-Simulator/IMG/center_2017_01_21_19_10_57_316.jpg')
-
-def load_image(file_name):
-  """Convert file name to image, including preprocessing for use as model input."""
-  img = mpimg.imread(file_name)
-  return convert_image_to_input_format(img)
 
 # import model as m; m.load_summary_data('../CarND-Simulator').head(5)
 
@@ -57,9 +61,13 @@ def load_summary_data(data_dir):
 def load_sample(data_dir):
   """Similar to load_summary_data except image paths replaced with actual images"""
   df = load_summary_data(data_dir)
+  convert_image_path = lambda file_name: re.sub(r".*/IMG/", data_dir + "/IMG/", file_name)
+  read_image = lambda file_name: mpimg.imread(convert_image_path(file_name))
   for camera in ['left','right','center']:
     column = 'img_' + camera 
-    df[column] = df[column].apply(lambda file_name: load_image(re.sub(r".*/IMG/", data_dir + "/IMG/", file_name)))
+    df_img_and_speed = df[[column,'speed']].apply(tuple, axis=1)
+    df[column] = df_img_and_speed.apply(lambda img_and_speed: convert_image_and_speed_to_input_format(read_image(img_and_speed[0]),
+                                                                                                      img_and_speed[1]))
   return df
 
 # input_array = m.sample_to_input_array(sample)
@@ -97,11 +105,11 @@ def create_model():
   """Create neural network model, defining layer architecture."""
   model = Sequential()
   # Convolution2D(output_depth, convolution height, convolution_width, ...)
-  model.add(Convolution2D(6, 5, 5, border_mode='valid', activation='tanh', input_shape=(70,320,3))) # -> (66,316,6)
+  model.add(Convolution2D(8, 5, 5, border_mode='valid', activation='tanh', input_shape=(70,320,4))) # -> (66,316,8)
   model.add(Dropout(0.5))
-  model.add(Convolution2D(12, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (31,156,12)
+  model.add(Convolution2D(16, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (31,156,16)
   model.add(Dropout(0.5))
-  model.add(Convolution2D(18, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (14,76,18)
+  model.add(Convolution2D(20, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (14,76,20)
   model.add(Dropout(0.5))
   model.add(Convolution2D(24, 5, 5, border_mode='valid', activation='tanh', subsample=(1,2))) # -> (10,36,24)
   model.add(Dropout(0.5))

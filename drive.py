@@ -1,4 +1,3 @@
-# drive the car (interact with the simulator)
 """
    drive.py: uses model to drive simulated car
 
@@ -40,11 +39,11 @@ def telemetry(sid, data):
     # The current throttle of the car
     throttle = data["throttle"]
     # The current speed of the car
-    speed = data["speed"]
+    speed = float(data["speed"])
     # The current image from the center camera of the car
     imgString = data["image"]
     image = Image.open(BytesIO(base64.b64decode(imgString)))
-    image_array = m.convert_image_to_input_format(np.asarray(image))
+    image_array = m.convert_image_and_speed_to_input_format(np.asarray(image), speed)
     transformed_image_array = image_array[None, :, :, :]
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     prediction = model.predict(transformed_image_array, batch_size=1)
