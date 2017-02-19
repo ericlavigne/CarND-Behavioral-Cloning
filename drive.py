@@ -1,4 +1,9 @@
 # drive the car (interact with the simulator)
+"""
+   drive.py: uses model to drive simulated car
+
+   Usage: python drive.py model.json
+"""
 
 import model as m
 
@@ -22,7 +27,6 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 # Fix error with Keras and TensorFlow
 import tensorflow as tf
 tf.python.control_flow_ops = tf
-
 
 sio = socketio.Server()
 app = Flask(__name__)
@@ -53,12 +57,10 @@ def telemetry(sid, data):
     print(steering_angle, throttle)
     send_control(steering_angle, throttle)
 
-
 @sio.on('connect')
 def connect(sid, environ):
     print("connect ", sid)
     send_control(0, 0)
-
 
 def send_control(steering_angle, throttle):
     sio.emit("steer", data={
@@ -66,21 +68,13 @@ def send_control(steering_angle, throttle):
     'throttle': throttle.__str__()
     }, skip_sid=True)
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Remote Driving')
     parser.add_argument('model', type=str,
     help='Path to model definition json. Model weights should be on the same path.')
     args = parser.parse_args()
     with open(args.model, 'r') as jfile:
-        # NOTE: if you saved the file by calling json.dump(model.to_json(), ...)
-        # then you will have to call:
-        #
-        #   model = model_from_json(json.loads(jfile.read()))\
-        #
-        # instead.
         model = model_from_json(jfile.read())
-
 
     model.compile("adam", "mse")
     weights_file = args.model.replace('json', 'h5')
