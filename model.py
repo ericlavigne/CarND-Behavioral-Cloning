@@ -85,13 +85,18 @@ def sample_to_input_array(sample):
 def sample_to_output_array(sample):
   """Convert Pandas DataFrame to model output array.
      Result is three times longer than original DataFrame due to
-     left/right/center becoming separate rows in model output."""
+     left/right/center becoming separate rows in model output.
+     Output includes both steering angle and throttle."""
   num_rows = len(sample)
-  result = np.zeros((num_rows * 3, 1))
+  result = np.zeros((num_rows * 3, 2))
   for camera_index, camera in enumerate(['left','center','right']):
     angle_offset = [0.05, 0.00, -0.05][camera_index]
-    for sample_index,steer_angle in enumerate(sample['steer']):
-      result[(camera_index * num_rows) + sample_index][0] = steer_angle + angle_offset
+    for sample_index,steer_and_throttle in enumerate(sample[['steer','throttle']].apply(tuple, axis=1)):
+      steer_angle = steer_and_throttle[0]
+      throttle = steer_and_throttle[1]
+      result_index = (camera_index * num_rows) + sample_index
+      result[result_index][0] = steer_angle + angle_offset
+      result[result_index][1] = throttle * 0.2
   return result
 
 def compile_model(model):
@@ -122,7 +127,7 @@ def create_model():
   model.add(Dropout(0.3))
   model.add(Dense(20, activation='tanh', W_regularizer=l2(0.01)))
   model.add(Dropout(0.2))
-  model.add(Dense(1, activation='tanh', W_regularizer=l2(0.01)))
+  model.add(Dense(2, activation='tanh', W_regularizer=l2(0.01)))
   compile_model(model)
   return model
 

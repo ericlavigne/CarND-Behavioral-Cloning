@@ -35,9 +35,9 @@ prev_image_array = None
 @sio.on('telemetry')
 def telemetry(sid, data):
     # The current steering angle of the car
-    steering_angle = data["steering_angle"]
+    previous_steering_angle = data["steering_angle"]
     # The current throttle of the car
-    throttle = data["throttle"]
+    previous_throttle = data["throttle"]
     # The current speed of the car
     speed = float(data["speed"])
     # The current image from the center camera of the car
@@ -49,11 +49,8 @@ def telemetry(sid, data):
     prediction = model.predict(transformed_image_array, batch_size=1)
     print("prediction: " + str(prediction))
     steering_angle = prediction[0][0]
-    print("steering angle: " + str(steering_angle))
-    print("\n===\n")
-    # The driving model currently just outputs a constant throttle. Feel free to edit this.
-    throttle = 1.0
-    print(steering_angle, throttle)
+    throttle = prediction[0][1] * 5.0
+    print("steering angle: " + str(steering_angle) + ", throttle: " + str(throttle) + "\n\n===\n")
     send_control(steering_angle, throttle)
 
 @sio.on('connect')
