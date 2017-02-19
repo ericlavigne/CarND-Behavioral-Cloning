@@ -48,9 +48,9 @@ data/IMG/center_2017_02_18_15_50_27_235.jpg, data/IMG/left_2017_02_18_15_50_27_2
 data/IMG/center_2017_02_18_15_50_58_986.jpg, data/IMG/left_2017_02_18_15_50_58_986.jpg, data/IMG/right_2017_02_18_15_50_58_986.jpg, -0.4, 1, 0, 30, Track 2: Approaching right side of sharp left turn
 data/IMG/center_2017_02_18_15_51_16_314.jpg, data/IMG/left_2017_02_18_15_51_16_314.jpg, data/IMG/right_2017_02_18_15_51_16_314.jpg, -0.4, 1, 0, 30, Track 2: Approaching right side of sharp left turn
 data/IMG/center_2017_02_18_15_51_31_865.jpg, data/IMG/left_2017_02_18_15_51_31_865.jpg, data/IMG/right_2017_02_18_15_51_31_865.jpg, -0.4, 1, 0, 30, Track 2: Approaching right side of sharp left turn
-data/IMG/center_2017_02_18_19_33_52_222.jpg, data/IMG/left_2017_02_18_19_33_52_222.jpg, data/IMG/right_2017_02_18_19_33_52_222.jpg, 0, 0, 0, 30, Approaching right turn
-data/IMG/center_2017_02_18_19_33_59_994.jpg, data/IMG/left_2017_02_18_19_33_59_994.jpg, data/IMG/right_2017_02_18_19_33_59_994.jpg, 0.2, 0, 0, 30, Entering sharp right turn
-data/IMG/center_2017_02_18_19_34_08_322.jpg, data/IMG/left_2017_02_18_19_34_08_322.jpg, data/IMG/right_2017_02_18_19_34_08_322.jpg, 0.4, 0, 0, 30, In sharp right turn
+data/IMG/center_2017_02_18_19_33_52_222.jpg, data/IMG/left_2017_02_18_19_33_52_222.jpg, data/IMG/right_2017_02_18_19_33_52_222.jpg, 0, 1, 0, 30, Approaching right turn
+data/IMG/center_2017_02_18_19_33_59_994.jpg, data/IMG/left_2017_02_18_19_33_59_994.jpg, data/IMG/right_2017_02_18_19_33_59_994.jpg, 0.2, 1, 0, 30, Entering sharp right turn
+data/IMG/center_2017_02_18_19_34_08_322.jpg, data/IMG/left_2017_02_18_19_34_08_322.jpg, data/IMG/right_2017_02_18_19_34_08_322.jpg, 0.4, 1, 0, 30, In sharp right turn
 data/IMG/center_2017_02_18_19_35_12_890.jpg, data/IMG/left_2017_02_18_19_35_12_890.jpg, data/IMG/right_2017_02_18_19_35_12_890.jpg, 0.6, 1, 0, 30, In sharp right turn need right correction
 data/IMG/center_2017_02_18_19_35_13_399.jpg, data/IMG/left_2017_02_18_19_35_13_399.jpg, data/IMG/right_2017_02_18_19_35_13_399.jpg, 0.2, 1, 0, 30, In right turn
 data/IMG/center_2017_02_18_19_35_14_115.jpg, data/IMG/left_2017_02_18_19_35_14_115.jpg, data/IMG/right_2017_02_18_19_35_14_115.jpg, -0.1, 1, 0, 30, Near right edge on straight road
