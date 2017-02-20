@@ -55,3 +55,27 @@ data/IMG/center_2017_02_18_19_35_12_890.jpg, data/IMG/left_2017_02_18_19_35_12_8
 data/IMG/center_2017_02_18_19_35_13_399.jpg, data/IMG/left_2017_02_18_19_35_13_399.jpg, data/IMG/right_2017_02_18_19_35_13_399.jpg, 0.2, 1, 0, 30, In right turn
 data/IMG/center_2017_02_18_19_35_14_115.jpg, data/IMG/left_2017_02_18_19_35_14_115.jpg, data/IMG/right_2017_02_18_19_35_14_115.jpg, -0.1, 1, 0, 30, Near right edge on straight road
 data/IMG/center_2017_02_18_19_35_15_966.jpg, data/IMG/left_2017_02_18_19_35_15_966.jpg, data/IMG/right_2017_02_18_19_35_15_966.jpg, 0.1, 1, 0, 30, center of road near cliff
+data/IMG/center_2017_02_19_15_36_08_241.jpg,data/IMG/left_2017_02_19_15_36_08_241.jpg,data/IMG/right_2017_02_19_15_36_08_241.jpg,0,1,0,0, Jungle: Three-point: Entering
+data/IMG/center_2017_02_19_15_40_05_466.jpg,data/IMG/left_2017_02_19_15_40_05_466.jpg,data/IMG/right_2017_02_19_15_40_05_466.jpg,-0.05,0.6,0,4, Jungle: Three-point: First turn correct left
+data/IMG/center_2017_02_19_15_40_16_976.jpg,data/IMG/left_2017_02_19_15_40_16_976.jpg,data/IMG/right_2017_02_19_15_40_16_976.jpg,-0.2,0.3,0,7, Jungle: Three-point: First turn right edge
+data/IMG/center_2017_02_19_15_40_26_209.jpg,data/IMG/left_2017_02_19_15_40_26_209.jpg,data/IMG/right_2017_02_19_15_40_26_209.jpg,0,0,0,10, Jungle: Three-point: Enter clearing
+data/IMG/center_2017_02_19_15_40_39_551.jpg,data/IMG/left_2017_02_19_15_40_39_551.jpg,data/IMG/right_2017_02_19_15_40_39_551.jpg,-0.9,0.5,0,10, Jungle: Three-point: Starting spin
+data/IMG/center_2017_02_19_15_41_01_542.jpg,data/IMG/left_2017_02_19_15_41_01_542.jpg,data/IMG/right_2017_02_19_15_41_01_542.jpg,-0.9,0.5,0,5, Jungle: Three-point: Mid spin forward
+data/IMG/center_2017_02_19_15_41_01_542.jpg,data/IMG/left_2017_02_19_15_41_01_542.jpg,data/IMG/right_2017_02_19_15_41_01_542.jpg,0.9,1,0,-5, Jungle: Three-point: Mid spin backward
+data/IMG/center_2017_02_19_15_41_02_000.jpg,data/IMG/left_2017_02_19_15_41_02_000.jpg,data/IMG/right_2017_02_19_15_41_02_000.jpg,-0.9,0.5,0,8, Jungle: Three-point: Spin near forward
+data/IMG/center_2017_02_19_15_41_02_000.jpg,data/IMG/left_2017_02_19_15_41_02_000.jpg,data/IMG/right_2017_02_19_15_41_02_000.jpg,0.9,-0.5,0,-8, Jungle: Three-point: Spin near backward
+data/IMG/center_2017_02_19_15_41_02_371.jpg,data/IMG/left_2017_02_19_15_41_02_371.jpg,data/IMG/right_2017_02_19_15_41_02_371.jpg,-0.9,-0.5,0,9, Jungle: Three-point: Spin edge forward
+data/IMG/center_2017_02_19_15_41_02_371.jpg,data/IMG/left_2017_02_19_15_41_02_371.jpg,data/IMG/right_2017_02_19_15_41_02_371.jpg,0.9,-0.5,0,-3, Jungle: Three-point: Spin edge backward
+data/IMG/center_2017_02_19_15_41_03_312.jpg,data/IMG/left_2017_02_19_15_41_03_312.jpg,data/IMG/right_2017_02_19_15_41_03_312.jpg,-0.9,-0.9,0,2, Jungle: Three-point: Spin hit forward
+data/IMG/center_2017_02_19_15_41_03_312.jpg,data/IMG/left_2017_02_19_15_41_03_312.jpg,data/IMG/right_2017_02_19_15_41_03_312.jpg,0.9,-0.9,0,-2, Jungle: Three-point: Spin hit backward
+data/IMG/center_2017_02_19_15_41_05_700.jpg,data/IMG/left_2017_02_19_15_41_05_700.jpg,data/IMG/right_2017_02_19_15_41_05_700.jpg,-0.9,-0.9,0,2, Jungle: Three-point: Spin hit slant forward
+data/IMG/center_2017_02_19_15_41_05_700.jpg,data/IMG/left_2017_02_19_15_41_05_700.jpg,data/IMG/right_2017_02_19_15_41_05_700.jpg,0.9,-0.9,0,-2, Jungle: Three-point: Spin hit slant backward
+data/IMG/center_2017_02_19_15_41_06_378.jpg,data/IMG/left_2017_02_19_15_41_06_378.jpg,data/IMG/right_2017_02_19_15_41_06_378.jpg,-0.9,0.5,0,8, Jungle: Three-point: Spin near forward
+data/IMG/center_2017_02_19_15_41_06_378.jpg,data/IMG/left_2017_02_19_15_41_06_378.jpg,data/IMG/right_2017_02_19_15_41_06_378.jpg,0.9,-0.5,0,-8, Jungle: Three-point: Spin near backward
+data/IMG/center_2017_02_19_15_41_07_040.jpg,data/IMG/left_2017_02_19_15_41_07_040.jpg,data/IMG/right_2017_02_19_15_41_07_040.jpg,-0.9,0.5,0,5, Jungle: Three-point: Mid spin forward
+data/IMG/center_2017_02_19_15_41_07_040.jpg,data/IMG/left_2017_02_19_15_41_07_040.jpg,data/IMG/right_2017_02_19_15_41_07_040.jpg,0.9,1,0,-5, Jungle: Three-point: Mid spin backward
+data/IMG/center_2017_02_19_15_41_13_553.jpg,data/IMG/left_2017_02_19_15_41_13_553.jpg,data/IMG/right_2017_02_19_15_41_13_553.jpg,-0.9,0.5,0,5, Jungle: Three-point: End spin forward
+data/IMG/center_2017_02_19_15_41_13_553.jpg,data/IMG/left_2017_02_19_15_41_13_553.jpg,data/IMG/right_2017_02_19_15_41_13_553.jpg,0.9,1,0,-5, Jungle: Three-point: End spin backward
+data/IMG/center_2017_02_19_15_41_17_538.jpg,data/IMG/left_2017_02_19_15_41_17_538.jpg,data/IMG/right_2017_02_19_15_41_17_538.jpg,-0.9,0.5,0,5, Jungle: Three-point: After spin leave forward correct left
+data/IMG/center_2017_02_19_15_41_17_538.jpg,data/IMG/left_2017_02_19_15_41_17_538.jpg,data/IMG/right_2017_02_19_15_41_17_538.jpg,0.9,1,0,-5, Jungle: Three-point: After spin leave backward correct left
+data/IMG/center_2017_02_19_15_41_19_395.jpg,data/IMG/left_2017_02_19_15_41_19_395.jpg,data/IMG/right_2017_02_19_15_41_19_395.jpg,0,1,0,10, Jungle: Three-point: After spin leave straight
