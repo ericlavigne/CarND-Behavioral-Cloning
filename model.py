@@ -1,7 +1,8 @@
 """
    model.py: create, train, and validate the model
 
-   Usage: python model.py --training_data=/Users/ericlavigne/workspace/CarND-Simulator --save_model=model
+   Usage: python model.py --training_data=data --save_model=model
+          python model.py --training_data=data --validation_percentage=10
 """
 
 import argparse
