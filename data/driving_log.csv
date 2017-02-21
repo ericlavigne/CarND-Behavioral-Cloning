@@ -55,3 +55,53 @@ data/IMG/center_2017_02_18_19_35_12_890.jpg, data/IMG/left_2017_02_18_19_35_12_8
 data/IMG/center_2017_02_18_19_35_13_399.jpg, data/IMG/left_2017_02_18_19_35_13_399.jpg, data/IMG/right_2017_02_18_19_35_13_399.jpg, 0.2, 1, 0, 30, Mountain: In right turn
 data/IMG/center_2017_02_18_19_35_14_115.jpg, data/IMG/left_2017_02_18_19_35_14_115.jpg, data/IMG/right_2017_02_18_19_35_14_115.jpg, -0.1, 1, 0, 30, Mountain: Near right edge on straight road
 data/IMG/center_2017_02_18_19_35_15_966.jpg, data/IMG/left_2017_02_18_19_35_15_966.jpg, data/IMG/right_2017_02_18_19_35_15_966.jpg, 0.1, 1, 0, 30, Mountain: Center of road near cliff
+data/IMG/center_2017_02_20_21_57_17_892.jpg,data/IMG/left_2017_02_20_21_57_17_892.jpg,data/IMG/right_2017_02_20_21_57_17_892.jpg,-0.1,1,0,0, Jungle: Start right lane
+data/IMG/center_2017_02_20_21_57_49_033.jpg,data/IMG/left_2017_02_20_21_57_49_033.jpg,data/IMG/right_2017_02_20_21_57_49_033.jpg,0,1,0,0, Jungle: Start center
+data/IMG/center_2017_02_20_21_58_10_707.jpg,data/IMG/left_2017_02_20_21_58_10_707.jpg,data/IMG/right_2017_02_20_21_58_10_707.jpg,0.1,1,0,0, Jungle: Start left lane
+data/IMG/center_2017_02_20_21_58_30_902.jpg,data/IMG/left_2017_02_20_21_58_30_902.jpg,data/IMG/right_2017_02_20_21_58_30_902.jpg,0,1,0,30, Jungle: start forward center
+data/IMG/center_2017_02_20_21_58_49_069.jpg,data/IMG/left_2017_02_20_21_58_49_069.jpg,data/IMG/right_2017_02_20_21_58_49_069.jpg,0.2,1,0,30, Jungle: start hill correct right
+data/IMG/center_2017_02_20_21_59_07_862.jpg,data/IMG/left_2017_02_20_21_59_07_862.jpg,data/IMG/right_2017_02_20_21_59_07_862.jpg,0,1,0,30, Jungle: start hill straight
+data/IMG/center_2017_02_20_21_59_17_352.jpg,data/IMG/left_2017_02_20_21_59_17_352.jpg,data/IMG/right_2017_02_20_21_59_17_352.jpg,-0.05,1,0,30, Jungle: top hill correct left
+data/IMG/center_2017_02_20_21_59_29_528.jpg,data/IMG/left_2017_02_20_21_59_29_528.jpg,data/IMG/right_2017_02_20_21_59_29_528.jpg,-0.1,1,0,30, Jungle: over top correct left
+data/IMG/center_2017_02_20_21_59_47_373.jpg,data/IMG/left_2017_02_20_21_59_47_373.jpg,data/IMG/right_2017_02_20_21_59_47_373.jpg,0,1,0,30, Jungle: down hill straight
+data/IMG/center_2017_02_20_22_00_37_611.jpg,data/IMG/left_2017_02_20_22_00_37_611.jpg,data/IMG/right_2017_02_20_22_00_37_611.jpg,0,1,0,30, Jungle: straight center
+data/IMG/center_2017_02_20_22_00_46_239.jpg,data/IMG/left_2017_02_20_22_00_46_239.jpg,data/IMG/right_2017_02_20_22_00_46_239.jpg,0.1,1,0,30, Jungle: snake correct right
+data/IMG/center_2017_02_20_22_00_54_254.jpg,data/IMG/left_2017_02_20_22_00_54_254.jpg,data/IMG/right_2017_02_20_22_00_54_254.jpg,0,1,0,30, Jungle: snake straight
+data/IMG/center_2017_02_20_22_01_05_664.jpg,data/IMG/left_2017_02_20_22_01_05_664.jpg,data/IMG/right_2017_02_20_22_01_05_664.jpg,0,1,0,30, Jungle: approaching hidden right turn (straight)
+data/IMG/center_2017_02_20_22_01_15_055.jpg,data/IMG/left_2017_02_20_22_01_15_055.jpg,data/IMG/right_2017_02_20_22_01_15_055.jpg,0.2,1,0,30, Jungle: top hill correct right
+data/IMG/center_2017_02_20_22_01_20_008.jpg,data/IMG/left_2017_02_20_22_01_20_008.jpg,data/IMG/right_2017_02_20_22_01_20_008.jpg,0.1,1,0,30, Jungle: top hill correct right
+data/IMG/center_2017_02_20_22_01_32_099.jpg,data/IMG/left_2017_02_20_22_01_32_099.jpg,data/IMG/right_2017_02_20_22_01_32_099.jpg,0,1,0,30, Jungle: top hill straight
+data/IMG/center_2017_02_20_22_01_38_184.jpg,data/IMG/left_2017_02_20_22_01_38_184.jpg,data/IMG/right_2017_02_20_22_01_38_184.jpg,0.9,1,0,30, Jungle: down hill sharp right turn
+data/IMG/center_2017_02_20_22_01_46_962.jpg,data/IMG/left_2017_02_20_22_01_46_962.jpg,data/IMG/right_2017_02_20_22_01_46_962.jpg,0.1,1,0,30, Jungle: up hill right turn
+data/IMG/center_2017_02_20_22_01_55_810.jpg,data/IMG/left_2017_02_20_22_01_55_810.jpg,data/IMG/right_2017_02_20_22_01_55_810.jpg,0,1,0,30, Jungle: up hill straight
+data/IMG/center_2017_02_20_22_02_21_315.jpg,data/IMG/left_2017_02_20_22_02_21_315.jpg,data/IMG/right_2017_02_20_22_02_21_315.jpg,0,1,0,30, Jungle: down hill straight before snake
+data/IMG/center_2017_02_20_22_02_27_939.jpg,data/IMG/left_2017_02_20_22_02_27_939.jpg,data/IMG/right_2017_02_20_22_02_27_939.jpg,0.7,1,0,30, Jungle: entering snake hard right
+data/IMG/center_2017_02_20_22_02_39_092.jpg,data/IMG/left_2017_02_20_22_02_39_092.jpg,data/IMG/right_2017_02_20_22_02_39_092.jpg,0.1,1,0,30, Jungle: snake correct right
+data/IMG/center_2017_02_20_22_02_46_366.jpg,data/IMG/left_2017_02_20_22_02_46_366.jpg,data/IMG/right_2017_02_20_22_02_46_366.jpg,-0.9,1,0,30, Jungle: snake hard left
+data/IMG/center_2017_02_20_22_03_12_004.jpg,data/IMG/left_2017_02_20_22_03_12_004.jpg,data/IMG/right_2017_02_20_22_03_12_004.jpg,0,1,0,30, Jungle: snake straight
+data/IMG/center_2017_02_20_22_03_21_250.jpg,data/IMG/left_2017_02_20_22_03_21_250.jpg,data/IMG/right_2017_02_20_22_03_21_250.jpg,-0.7,1,0,30, Jungle: hard left
+data/IMG/center_2017_02_20_22_03_33_625.jpg,data/IMG/left_2017_02_20_22_03_33_625.jpg,data/IMG/right_2017_02_20_22_03_33_625.jpg,-0.05,1,0,30, Jungle: snake gentle left
+data/IMG/center_2017_02_20_22_03_49_961.jpg,data/IMG/left_2017_02_20_22_03_49_961.jpg,data/IMG/right_2017_02_20_22_03_49_961.jpg,0.9,1,0,30, Jungle: hard right
+data/IMG/center_2017_02_20_22_04_21_745.jpg,data/IMG/left_2017_02_20_22_04_21_745.jpg,data/IMG/right_2017_02_20_22_04_21_745.jpg,-0.1,1,0,30, Jungle: hill top correct left
+data/IMG/center_2017_02_20_22_04_55_943.jpg,data/IMG/left_2017_02_20_22_04_55_943.jpg,data/IMG/right_2017_02_20_22_04_55_943.jpg,-0.05,1,0,30, Jungle: down hill approaching sharp right bridge (slight windup to left for now)
+data/IMG/center_2017_02_20_22_04_56_521.jpg,data/IMG/left_2017_02_20_22_04_56_521.jpg,data/IMG/right_2017_02_20_22_04_56_521.jpg,0,1,0,30, Jungle: down hill approaching sharp right bridge (straight)
+data/IMG/center_2017_02_20_22_05_00_541.jpg,data/IMG/left_2017_02_20_22_05_00_541.jpg,data/IMG/right_2017_02_20_22_05_00_541.jpg,0.9,1,0,30, Jungle: hard right approaching bridge
+data/IMG/center_2017_02_20_22_05_05_502.jpg,data/IMG/left_2017_02_20_22_05_05_502.jpg,data/IMG/right_2017_02_20_22_05_05_502.jpg,0.7,1,0,30, Jungle: hard right (almost clear)
+data/IMG/center_2017_02_20_22_05_19_202.jpg,data/IMG/left_2017_02_20_22_05_19_202.jpg,data/IMG/right_2017_02_20_22_05_19_202.jpg,0,1,0,30, Jungle: downhill snake straight
+data/IMG/center_2017_02_20_22_05_22_864.jpg,data/IMG/left_2017_02_20_22_05_22_864.jpg,data/IMG/right_2017_02_20_22_05_22_864.jpg,0,1,0,30, Jungle: hill obscures snake (straight)
+data/IMG/center_2017_02_20_22_06_12_894.jpg,data/IMG/left_2017_02_20_22_06_12_894.jpg,data/IMG/right_2017_02_20_22_06_12_894.jpg,0.7,1,0,30, Jungle: uphill hard right
+data/IMG/center_2017_02_20_22_06_52_739.jpg,data/IMG/left_2017_02_20_22_06_52_739.jpg,data/IMG/right_2017_02_20_22_06_52_739.jpg,0.1,1,0,30, Jungle: downhill loop gentle right
+data/IMG/center_2017_02_20_22_06_58_148.jpg,data/IMG/left_2017_02_20_22_06_58_148.jpg,data/IMG/right_2017_02_20_22_06_58_148.jpg,0,1,0,30, Jungle: downhill loop straight
+data/IMG/center_2017_02_20_22_07_05_352.jpg,data/IMG/left_2017_02_20_22_07_05_352.jpg,data/IMG/right_2017_02_20_22_07_05_352.jpg,-0.7,1,0,30, Jungle: hard left
+data/IMG/center_2017_02_20_22_07_15_549.jpg,data/IMG/left_2017_02_20_22_07_15_549.jpg,data/IMG/right_2017_02_20_22_07_15_549.jpg,-0.9,1,0,30, Jungle: hard left
+data/IMG/center_2017_02_20_22_07_51_308.jpg,data/IMG/left_2017_02_20_22_07_51_308.jpg,data/IMG/right_2017_02_20_22_07_51_308.jpg,0.9,1,0,30, Jungle: base hill before bridge (hard right)
+data/IMG/center_2017_02_20_22_07_55_401.jpg,data/IMG/left_2017_02_20_22_07_55_401.jpg,data/IMG/right_2017_02_20_22_07_55_401.jpg,0,1,0,30, Jungle: base hill before bridge (straight)
+data/IMG/center_2017_02_20_22_08_01_281.jpg,data/IMG/left_2017_02_20_22_08_01_281.jpg,data/IMG/right_2017_02_20_22_08_01_281.jpg,0,1,0,30, Jungle: bridge ahead straight
+data/IMG/center_2017_02_20_22_08_05_465.jpg,data/IMG/left_2017_02_20_22_08_05_465.jpg,data/IMG/right_2017_02_20_22_08_05_465.jpg,0,1,0,30, Jungle: entering bridge straight
+data/IMG/center_2017_02_20_22_08_11_218.jpg,data/IMG/left_2017_02_20_22_08_11_218.jpg,data/IMG/right_2017_02_20_22_08_11_218.jpg,0,1,0,30, Jungle: on bridge straight
+data/IMG/center_2017_02_20_22_08_39_745.jpg,data/IMG/left_2017_02_20_22_08_39_745.jpg,data/IMG/right_2017_02_20_22_08_39_745.jpg,-0.05,1,0,30, Jungle: approaching map center gentle left
+data/IMG/center_2017_02_20_22_08_47_322.jpg,data/IMG/left_2017_02_20_22_08_47_322.jpg,data/IMG/right_2017_02_20_22_08_47_322.jpg,0,1,0,30, Jungle: map center straight
+data/IMG/center_2017_02_20_22_09_05_639.jpg,data/IMG/left_2017_02_20_22_09_05_639.jpg,data/IMG/right_2017_02_20_22_09_05_639.jpg,0,1,0,30, Jungle: approaching sharp left (straight for now)
+data/IMG/center_2017_02_20_22_09_08_604.jpg,data/IMG/left_2017_02_20_22_09_08_604.jpg,data/IMG/right_2017_02_20_22_09_08_604.jpg,-0.9,1,0,30, Jungle: hard left
+data/IMG/center_2017_02_20_22_09_57_916.jpg,data/IMG/left_2017_02_20_22_09_57_916.jpg,data/IMG/right_2017_02_20_22_09_57_916.jpg,-0.9,1,0,30, Jungle: hard left
+data/IMG/center_2017_02_20_22_12_21_110.jpg,data/IMG/left_2017_02_20_22_12_21_110.jpg,data/IMG/right_2017_02_20_22_12_21_110.jpg,0.1,1,0,30, Jungle: end correct right
