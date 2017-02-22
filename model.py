@@ -41,10 +41,11 @@ def convert_image_and_speed_to_input_format(original,speed):
   img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   # Normalize all channels to [-0.5,0.5] range
   img = (img / 255) - 0.5
-  # Add normalized speed 
-  hue_channel, saturation_channel, value_channel = cv2.split(img)
-  speed_channel = np.ones(hue_channel.shape) * (speed / 60.0)
-  img = cv2.merge((hue_channel, saturation_channel, value_channel, speed_channel))
+  
+  # Add normalized speed - turned off because no longer working on three-point turn
+  #hue_channel, saturation_channel, value_channel = cv2.split(img)
+  #speed_channel = np.ones(hue_channel.shape) * (speed / 60.0)
+  #img = cv2.merge((hue_channel, saturation_channel, value_channel, speed_channel))
   
   return img
 
@@ -100,12 +101,13 @@ def sample_to_output_array(sample):
       result[result_index][1] = throttle * 0.2
   return result
 
-driving_loss_weights = tf.constant([0.8, 0.2])
+driving_loss_weights = tf.constant([1.0, 0.0])
   
 def driving_loss(y_true, y_pred):
   """Custom loss function for driving agent. Steering angle is more difficult
      and more important than throttle, so loss should give steering angle more
-     weight."""
+     weight.
+     (Set throttle weight to 0.0 when no longer attempting three-point turn.)"""
   individual_losses = tf.abs(y_pred - y_true)
   weighted_individual_losses = tf.multiply(individual_losses, driving_loss_weights)
   return tf.reduce_mean(weighted_individual_losses, axis=-1)
@@ -121,7 +123,7 @@ def create_model():
   """Create neural network model, defining layer architecture."""
   model = Sequential()
   # Convolution2D(output_depth, convolution height, convolution_width, ...)
-  model.add(Convolution2D(8, 5, 5, border_mode='valid', activation='tanh', input_shape=(70,320,4))) # -> (66,316,8)
+  model.add(Convolution2D(8, 5, 5, border_mode='valid', activation='tanh', input_shape=(70,320,3))) # -> (66,316,8)
   model.add(Dropout(0.5))
   model.add(Convolution2D(16, 5, 5, border_mode='valid', activation='tanh', subsample=(2,2))) # -> (31,156,16)
   model.add(Dropout(0.5))
