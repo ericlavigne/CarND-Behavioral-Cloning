@@ -92,7 +92,7 @@ def sample_to_output_array(sample):
   num_rows = len(sample)
   result = np.zeros((num_rows * 3, 1))
   for camera_index, camera in enumerate(['left','center','right']):
-    angle_offset = [0.05, 0.00, -0.05][camera_index]
+    angle_offset = [0.1, 0.00, -0.1][camera_index]
     for sample_index,steer_and_throttle in enumerate(sample[['steer','throttle']].apply(tuple, axis=1)):
       steer_angle = steer_and_throttle[0]
       throttle = steer_and_throttle[1]
