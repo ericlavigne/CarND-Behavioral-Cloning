@@ -65,7 +65,7 @@ def load_sample(data_dir):
   df = load_summary_data(data_dir)
   convert_image_path = lambda file_name: re.sub(r".*/IMG/", data_dir + "/IMG/", file_name)
   read_image = lambda file_name: mpimg.imread(convert_image_path(file_name))
-  for camera in ['left','right','center']:
+  for camera in ['center']: #['left','right','center']:
     column = 'img_' + camera 
     df_img_and_speed = df[[column,'speed']].apply(tuple, axis=1)
     df[column] = df_img_and_speed.apply(lambda img_and_speed: convert_image_and_speed_to_input_format(read_image(img_and_speed[0]),
@@ -78,9 +78,10 @@ def sample_to_input_array(sample):
   """Convert Pandas DataFrame to model input array.
      Result is three times longer than input due to left/right/center
      becoming separate examples in model input."""
-  return np.concatenate((np.stack(sample['img_left'].values),
-                         np.stack(sample['img_center'].values),
-                         np.stack(sample['img_right'].values)))
+  #return np.concatenate((np.stack(sample['img_left'].values),
+  #                       np.stack(sample['img_center'].values),
+  #                       np.stack(sample['img_right'].values)))
+  return np.stack(sample['img_center'].values)
 
 # output_array = m.sample_to_output_array(sample)
 
@@ -90,9 +91,9 @@ def sample_to_output_array(sample):
      left/right/center becoming separate rows in model output.
      Output includes both steering angle and throttle."""
   num_rows = len(sample)
-  result = np.zeros((num_rows * 3, 1))
-  for camera_index, camera in enumerate(['left','center','right']):
-    angle_offset = [0.1, 0.00, -0.1][camera_index]
+  result = np.zeros((num_rows,1)) #(num_rows * 3, 1))
+  for camera_index, camera in enumerate(['center']): # ['left','center','right']):
+    angle_offset = 0.0 #[0.1, 0.00, -0.1][camera_index]
     for sample_index,steer_and_throttle in enumerate(sample[['steer','throttle']].apply(tuple, axis=1)):
       steer_angle = steer_and_throttle[0]
       throttle = steer_and_throttle[1]
